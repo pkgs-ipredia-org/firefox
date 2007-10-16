@@ -427,6 +427,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Oct 16 2007 Martin Stransky <stransky@redhat.com>
+- added fix for #246248 - firefox crashes when searching
+
 * Wed Jul 18 2007 Kai Engert <kengert@redhat.com> - 2.0.0.5-1
 - Update to 2.0.0.5
 
