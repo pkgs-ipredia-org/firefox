@@ -158,7 +158,7 @@ removed in favor of xulrunner-devel.
 %patch40 -p1 -b .bullet-bill
 %patch41 -p1 -b .undo-uriloader
 %patch42 -p0 -b .uriloader
-%patch81 -p1 -b .nopangoxft
+#%patch81 -p1 -b .nopangoxft
 #%patch82 -p1 -b .pango-mathml
 %patch83 -p1 -b .pango-cursor-position
 %patch84 -p0 -b .pango-printing
