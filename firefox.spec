@@ -11,7 +11,7 @@
 
 Summary:        Mozilla Firefox Web browser.
 Name:           firefox
-Version:        2.0.0.5
+Version:        2.0.0.8
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPL/LGPL
@@ -22,7 +22,7 @@ Group:          Applications/Internet
 %define tarball firefox-2.0rc3-source.tar.bz2
 %endif
 Source0:        %{tarball}
-Source2:        firefox-langpacks-%{version}-20070718.tar.bz2
+Source2:        firefox-langpacks-%{version}-20071019.tar.bz2
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
 Source12:       firefox-redhat-default-prefs.js
@@ -427,6 +427,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Oct 19 2007 Christopher Aillon <caillon@redhat.com> - 2.0.0.8-1
+- Update to 2.0.0.8
+
 * Tue Oct 16 2007 Martin Stransky <stransky@redhat.com>
 - added fix for #246248 - firefox crashes when searching
 
