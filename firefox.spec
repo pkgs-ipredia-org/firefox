@@ -12,7 +12,7 @@
 Summary:        Mozilla Firefox Web browser.
 Name:           firefox
 Version:        2.0.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPL/LGPL
 Group:          Applications/Internet
@@ -80,6 +80,9 @@ Patch104:       firefox-1.5-ppc64.patch
 
 
 %endif
+
+Patch200:       firefox-2.0.0.10-canvas-load.patch
+
 
 # ---------------------------------------------------
 
@@ -170,6 +173,8 @@ removed in favor of xulrunner-devel.
 
 %patch102 -p0 -b .theme-change
 %patch104 -p1 -b .ppc64
+
+%patch200 -p0 -b .canvas-load
 
 # For branding specific patches.
 
@@ -427,6 +432,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Nov 28 2007 Christopher Aillon <caillon@redhat.com> 2.0.0.10-2
+- Make Canvas.drawImage work again
+
 * Mon Nov 26 2007 Christopher Aillon <caillon@redhat.com> 2.0.0.10-1
 - Update to 2.0.0.10
 
