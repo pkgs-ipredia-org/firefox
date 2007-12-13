@@ -12,7 +12,7 @@
 Summary:        Mozilla Firefox Web browser.
 Name:           firefox
 Version:        2.0.0.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -47,6 +47,7 @@ Patch23:        firefox-1.1-software-update.patch
 Patch40:        firefox-1.5-bullet-bill.patch
 Patch41:        firefox-2.0.0.4-undo-uriloader.patch
 Patch42:        firefox-1.1-uriloader.patch
+Patch43:        firefox-2.0-getstartpage.patch
 
 # font system fixes
 Patch81:        firefox-1.5-nopangoxft.patch
@@ -153,6 +154,7 @@ removed in favor of xulrunner-devel.
 %patch40 -p1 -b .bullet-bill
 %patch41 -p1 -b .undo-uriloader
 %patch42 -p0 -b .uriloader
+%patch43 -p1 -b .getstartpage
 #%patch81 -p1 -b .nopangoxft
 #%patch82 -p1 -b .pango-mathml
 %patch83 -p1 -b .pango-cursor-position
@@ -441,6 +443,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Dec 13 2007 Christopher Aillon <caillon@redhat.com> 2.0.0.10-3
+- Fix the getStartPage method to not return blank.
+  Patch by pspencer@fields.utoronto.ca
+
 * Wed Nov 28 2007 Christopher Aillon <caillon@redhat.com> 2.0.0.10-2
 - Make Canvas.drawImage work again
 
