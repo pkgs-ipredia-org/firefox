@@ -11,8 +11,8 @@
 
 Summary:        Mozilla Firefox Web browser.
 Name:           firefox
-Version:        2.0.0.10
-Release:        3%{?dist}
+Version:        2.0.0.12
+Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -22,7 +22,7 @@ Group:          Applications/Internet
 %define tarball firefox-2.0rc3-source.tar.bz2
 %endif
 Source0:        %{tarball}
-Source2:        firefox-langpacks-%{version}-20071123.tar.bz2
+Source2:        firefox-langpacks-%{version}-20080208.tar.bz2
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
 Source12:       firefox-redhat-default-prefs.js
@@ -79,8 +79,6 @@ Patch112:       firefox-2.0-enable-debug.patch
 
 
 %endif
-
-Patch200:       firefox-2.0.0.10-canvas-load.patch
 
 
 # ---------------------------------------------------
@@ -173,8 +171,6 @@ removed in favor of xulrunner-devel.
 %patch111 -p1 -b .path
 %patch112 -p1 -b .debug
 
-%patch200 -p0 -b .canvas-load
-
 # For branding specific patches.
 
 %if %{official_branding}
@@ -201,9 +197,9 @@ removed in favor of xulrunner-devel.
 
 %build
 
-# Build with -Os as it helps the browser; also, don't override mozilla's warning
-# level; they use -Wall but disable a few warnings that show up _everywhere_
-MOZ_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | %{__sed} -e 's/-O2/-Os/' -e 's/-Wall//')
+# Don't override mozilla's warning level; they use -Wall
+# but disable a few warnings that show up _everywhere_
+MOZ_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | %{__sed} -e 's/-Wall//')
 
 export RPM_OPT_FLAGS=$MOZ_OPT_FLAGS
 export PREFIX='%{_prefix}'
@@ -443,6 +439,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Feb  8 2008 Christopher Aillon <caillon@redhat.com> 2.0.0.12-1
+- Update to 2.0.0.12
+
 * Thu Dec 13 2007 Christopher Aillon <caillon@redhat.com> 2.0.0.10-3
 - Fix the getStartPage method to not return blank.
   Patch by pspencer@fields.utoronto.ca
