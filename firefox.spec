@@ -26,7 +26,7 @@ URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
 %if %{official_branding}
-%define tarball firefox-%{version}-source.tar.bz2
+%define tarball firefox-%{version_internal}-source.tar.bz2
 %else
 %define tarball mozilla-%{cvsdate}.tar.bz2
 %endif
