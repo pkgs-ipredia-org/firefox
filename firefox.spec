@@ -15,13 +15,13 @@
 %define cvsdate 20080327
 %define nightly .cvs%{cvsdate}
 %else
-%define version_pre .beta5rc2
+%define version_pre .beta5
 %endif
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.0
-Release:        0.51%{?version_pre}%{?nightly}%{?dist}
+Release:        0.52%{?version_pre}%{?nightly}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -315,6 +315,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Apr  2 2008 Christopher Aillon <caillon@redhat.com> 3.0-0.52
+- Beta 5
+
 * Mon Mar 31 2008 Christopher Aillon <caillon@redhat.com> 3.0-0.51
 - Beta 5 RC2
 
