@@ -9,7 +9,7 @@
 %define gecko_version	1.9
 
 %define official_branding    1
-%define build_langpacks      0
+%define build_langpacks      1
 
 %if ! %{official_branding}
 %define cvsdate 20080327
@@ -21,7 +21,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.0
-Release:        0.52%{?version_pre}%{?nightly}%{?dist}
+Release:        0.53%{?version_pre}%{?nightly}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -31,7 +31,9 @@ Group:          Applications/Internet
 %define tarball mozilla-%{cvsdate}.tar.bz2
 %endif
 Source0:        %{tarball}
-#Source2:        firefox-langpacks-20080104.tar.bz2
+%if %{build_langpacks}
+Source2:        firefox-langpacks-%{version_internal}-20080407.tar.bz2
+%endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
 Source12:       firefox-redhat-default-prefs.js
@@ -208,6 +210,7 @@ ln -s %{default_bookmarks_file} $RPM_BUILD_ROOT/%{mozappdir}/defaults/profile/bo
 
 %if %{build_langpacks}
 # Install langpacks
+touch ../%{name}.lang
 %{__mkdir_p} $RPM_BUILD_ROOT/%{mozappdir}/extensions
 %{__tar} xjf %{SOURCE2}
 for langpack in `ls firefox-langpacks/*.xpi`; do
@@ -233,6 +236,10 @@ for langpack in `ls firefox-langpacks/*.xpi`; do
   zip -r -D $jarfile locale
   cd -
   %{__rm} -rf $tmpdir
+
+  language=`echo $language | sed -e 's/-/_/g'`
+  extensiondir=`echo $extensiondir | sed -e "s,^$RPM_BUILD_ROOT,,"`
+  echo "%%lang($language) $extensiondir" >> ../%{name}.lang
 done
 %{__rm} -rf firefox-langpacks
 %endif # build_langpacks
@@ -242,7 +249,7 @@ done
 %{__mkdir_p} $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{firefox_app_id}
 
 # Copy over the LICENSE
-install -c -m 644 LICENSE $RPM_BUILD_ROOT/%{mozappdir}
+%{__install} -p -c -m 644 LICENSE $RPM_BUILD_ROOT/%{mozappdir}
 
 # ghost files
 touch $RPM_BUILD_ROOT/%{mozappdir}/components/compreg.dat
@@ -278,7 +285,7 @@ if [ $1 -eq 0 ]; then
 fi
 
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root,-)
 %{_bindir}/firefox
 %{_mandir}/man1/*
@@ -299,7 +306,8 @@ fi
 %attr(644, root, root) %{mozappdir}/blocklist.xml
 %attr(644, root, root) %{mozappdir}/components/*.js
 %{mozappdir}/defaults
-%{mozappdir}/extensions
+%dir %{mozappdir}/extensions
+%{mozappdir}/extensions/{972ce4c6-7e08-4474-a285-3208198ce6fd}
 %{mozappdir}/icons
 %{mozappdir}/searchplugins
 %{mozappdir}/firefox
@@ -315,6 +323,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Apr  7 2008 Christopher Aillon <caillon@redhat.com> 3.0-0.53
+- Add langpacks, marked with %%lang
+- Translate the .desktop file
+
 * Wed Apr  2 2008 Christopher Aillon <caillon@redhat.com> 3.0-0.52
 - Beta 5
 
