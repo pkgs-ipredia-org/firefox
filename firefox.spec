@@ -21,7 +21,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.0
-Release:        0.53%{?version_pre}%{?nightly}%{?dist}
+Release:        0.54%{?version_pre}%{?nightly}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -32,7 +32,7 @@ Group:          Applications/Internet
 %endif
 Source0:        %{tarball}
 %if %{build_langpacks}
-Source2:        firefox-langpacks-%{version_internal}-20080407.tar.bz2
+Source2:        firefox-langpacks-%{version_internal}-20080412.tar.bz2
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -44,8 +44,9 @@ Source23:       firefox.1
 Source100:      find-external-requires
 
 
-# other patches
-Patch43:        firefox-2.0-getstartpage.patch
+Patch1:        firefox-2.0-getstartpage.patch
+
+# Upstream patches
 
 %if %{official_branding}
 # Required by Mozilla Corporation
@@ -94,8 +95,7 @@ compliance, performance and portability.
 %setup -q -c
 cd mozilla
 
-%patch43  -p1 -b .getstartpage
-
+%patch1 -p1 -b .getstartpage
 
 # For branding specific patches.
 
@@ -323,6 +323,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Sat Apr 12 2008 Christopher Aillon <caillon@redhat.com> 3.0-0.54
+- Remove the broken Macedonian (mk) langpack
+- Download to Download/
+
 * Mon Apr  7 2008 Christopher Aillon <caillon@redhat.com> 3.0-0.53
 - Add langpacks, marked with %%lang
 - Translate the .desktop file
