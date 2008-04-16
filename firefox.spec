@@ -11,7 +11,7 @@
 
 Summary:        Mozilla Firefox Web browser.
 Name:           firefox
-Version:        2.0.0.13
+Version:        2.0.0.14
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -22,7 +22,7 @@ Group:          Applications/Internet
 %define tarball firefox-2.0rc3-source.tar.bz2
 %endif
 Source0:        %{tarball}
-Source2:        firefox-langpacks-%{version}-20080325.tar.bz2
+Source2:        firefox-langpacks-%{version}-20080416.tar.bz2
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
 Source12:       firefox-redhat-default-prefs.js
@@ -439,6 +439,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Apr 16 2008 Christopher Aillon <caillon@redhat.com> 2.0.0.14-1
+- Update to 2.0.0.14
+
 * Tue Mar 25 2008 Christopher Aillon <caillon@redhat.com> 2.0.0.13-1
 - Update to 2.0.0.13
 
