@@ -21,7 +21,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.0
-Release:        0.54%{?version_pre}%{?nightly}%{?dist}
+Release:        0.55%{?version_pre}%{?nightly}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -177,8 +177,9 @@ desktop-file-install --vendor mozilla \
 # set up our default homepage
 %{__cat} >> rh-default-prefs << EOF
 pref("browser.startup.homepage", "%{homepage}");
-pref("startup.homepage_override_url", "%{homepage}");
-pref("startup.homepage_welcome_url", "%{homepage}");
+# Don't show an welcome page during first start
+pref("startup.homepage_override_url", "");
+pref("startup.homepage_welcome_url", "");
 EOF
 
 # place the preferences
@@ -323,6 +324,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Apr 18 2008 Martin Stransky <stransky@redhat.com> 3.0-0.55
+- Don't show an welcome page during first browser start (#437065)
+
 * Sat Apr 12 2008 Christopher Aillon <caillon@redhat.com> 3.0-0.54
 - Remove the broken Macedonian (mk) langpack
 - Download to Download/
