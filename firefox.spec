@@ -21,7 +21,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.0
-Release:        0.55%{?version_pre}%{?nightly}%{?dist}
+Release:        0.57%{?version_pre}%{?nightly}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -324,6 +324,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Apr 25 2008 Martin Stransky <stransky@redhat.com> 3.0-0.57
+- Enable anti-pishing protection (#443403)
+
 * Fri Apr 18 2008 Martin Stransky <stransky@redhat.com> 3.0-0.55
 - Don't show an welcome page during first browser start (#437065)
 
