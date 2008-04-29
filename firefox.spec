@@ -3,10 +3,10 @@
 %define desktop_file_utils_version 0.9
 %define firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 
-%define version_internal	3.0b5
-%define mozappdir 		%{_libdir}/%{name}-%{version_internal}
+%define version_internal     3.0b5
+%define mozappdir            %{_libdir}/%{name}-%{version_internal}
 
-%define gecko_version	1.9
+%define gecko_version 1.9
 
 %define official_branding    1
 %define build_langpacks      1
@@ -21,7 +21,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.0
-Release:        0.57%{?version_pre}%{?nightly}%{?dist}
+Release:        0.59%{?version_pre}%{?nightly}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -211,7 +211,7 @@ ln -s %{default_bookmarks_file} $RPM_BUILD_ROOT/%{mozappdir}/defaults/profile/bo
 
 %if %{build_langpacks}
 # Install langpacks
-touch ../%{name}.lang
+echo > ../%{name}.lang
 %{__mkdir_p} $RPM_BUILD_ROOT/%{mozappdir}/extensions
 %{__tar} xjf %{SOURCE2}
 for langpack in `ls firefox-langpacks/*.xpi`; do
@@ -289,7 +289,7 @@ fi
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %{_bindir}/firefox
-%{_mandir}/man1/*
+%doc %{_mandir}/man1/*
 %dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 %dir %{_libdir}/mozilla/extensions/%{firefox_app_id}
 %{_datadir}/applications/mozilla-%{name}.desktop
@@ -316,14 +316,20 @@ fi
 %{mozappdir}/application.ini
 %dir %{mozappdir}/modules
 %{mozappdir}/modules/distribution.js
-%{mozappdir}/removed-files
 %{mozappdir}/.autoreg
 # XXX See if these are needed still
 %{mozappdir}/updater*
+%exclude %{mozappdir}/removed-files
 
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Apr 28 2008 Christopher Aillon <caillon@redhat.com> 3.0-0.59
+- Zero out the lang file we generate during builds
+
+* Mon Apr 28 2008 Christopher Aillon <caillon@redhat.com> 3.0-0.58
+- Bounce a few unneeded items from the spec and clean up some tabs
+
 * Fri Apr 25 2008 Martin Stransky <stransky@redhat.com> 3.0-0.57
 - Enable anti-pishing protection (#443403)
 
