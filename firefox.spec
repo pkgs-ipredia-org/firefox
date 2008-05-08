@@ -21,7 +21,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.0
-Release:        0.60%{?version_pre}%{?nightly}%{?dist}
+Release:        0.61%{?version_pre}%{?nightly}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -324,6 +324,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu May 08 2008 Colin Walters <walters@redhat.com> 3.0-0.61
+- Rebuild to pick up new xulrunner (bug #445543)
+
 * Wed Apr 30 2008 Christopher Aillon <caillon@redhat.com> 3.0-0.60
 - Rebuild
 
