@@ -1,9 +1,10 @@
 %define homepage http://start.fedoraproject.org/
+%define firstrun http://fedoraproject.org/static/firefox/
 %define default_bookmarks_file %{_datadir}/bookmarks/default-bookmarks.html
 %define desktop_file_utils_version 0.9
 %define firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 
-%define version_internal     3.0b5
+%define version_internal     3.0
 %define mozappdir            %{_libdir}/%{name}-%{version_internal}
 
 %define gecko_version 1.9
@@ -14,25 +15,23 @@
 %if ! %{official_branding}
 %define cvsdate 20080327
 %define nightly .cvs%{cvsdate}
-%else
-%define version_pre .beta5
 %endif
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.0
-Release:        0.61%{?version_pre}%{?nightly}%{?dist}
+Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
 %if %{official_branding}
-%define tarball firefox-%{version_internal}-source.tar.bz2
+%define tarball firefox-%{version}-source.tar.bz2
 %else
 %define tarball mozilla-%{cvsdate}.tar.bz2
 %endif
 Source0:        %{tarball}
 %if %{build_langpacks}
-Source2:        firefox-langpacks-%{version_internal}-20080412.tar.bz2
+Source2:        firefox-langpacks-%{version}-20080417.tar.bz2
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -44,12 +43,13 @@ Source23:       firefox.1
 Source100:      find-external-requires
 
 
-Patch1:        firefox-2.0-getstartpage.patch
+Patch1:         firefox-2.0-getstartpage.patch
 
 # Upstream patches
 
 %if %{official_branding}
 # Required by Mozilla Corporation
+Patch10:        mozilla-firstrun.patch
 
 
 %else
@@ -101,7 +101,7 @@ cd mozilla
 
 %if %{official_branding}
 # Required by Mozilla Corporation
-
+%patch10 -p1 -b .firstrun
 
 %else
 # Not yet approved by Mozilla Corporation
@@ -177,9 +177,8 @@ desktop-file-install --vendor mozilla \
 # set up our default homepage
 %{__cat} >> rh-default-prefs << EOF
 pref("browser.startup.homepage", "%{homepage}");
-# Don't show an welcome page during first start
-pref("startup.homepage_override_url", "");
-pref("startup.homepage_welcome_url", "");
+pref("startup.homepage_override_url", "%{firstrun}");
+pref("startup.homepage_welcome_url", "%{firstrun}");
 EOF
 
 # place the preferences
@@ -209,9 +208,9 @@ ln -s %{default_bookmarks_file} $RPM_BUILD_ROOT/%{mozappdir}/defaults/profile/bo
 %{__cp} other-licenses/branding/%{name}/default16.png \
         $RPM_BUILD_ROOT/%{mozappdir}/icons/
 
+echo > ../%{name}.lang
 %if %{build_langpacks}
 # Install langpacks
-echo > ../%{name}.lang
 %{__mkdir_p} $RPM_BUILD_ROOT/%{mozappdir}/extensions
 %{__tar} xjf %{SOURCE2}
 for langpack in `ls firefox-langpacks/*.xpi`; do
@@ -228,7 +227,8 @@ for langpack in `ls firefox-langpacks/*.xpi`; do
   unzip $jarfile -d $langtmp
 
   sed -i -e "s|browser.startup.homepage.*$|browser.startup.homepage=%{homepage}|g;" \
-         -e "s|startup.homepage_override_url.*$|startup.homepage_override_url=%{homepage}|g;" \
+         -e "s|startup.homepage_override_url.*$|startup.homepage_override_url=%{firstrun}|g;" \
+         -e "s|startup.homepage_welcome_url.*$|startup.homepage_welcome_url=%{firstrun}|g;" \
          $langtmp/locale/browser-region/region.properties
 
   find $langtmp -type f | xargs chmod 644
@@ -255,6 +255,9 @@ done
 # ghost files
 touch $RPM_BUILD_ROOT/%{mozappdir}/components/compreg.dat
 touch $RPM_BUILD_ROOT/%{mozappdir}/components/xpti.dat
+
+# jemalloc shows up sometimes, but it's not needed here, it's in XR
+%{__rm} -f $RPM_BUILD_ROOT/%{mozappdir}/libjemalloc.so
 
 #---------------------------------------------------------------------
 
@@ -324,6 +327,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Jun 17 2008 Christopher Aillon <caillon@redhat.com> 3.0-1
+- Firefox 3 Final
+
 * Thu May 08 2008 Colin Walters <walters@redhat.com> 3.0-0.61
 - Rebuild to pick up new xulrunner (bug #445543)
 
