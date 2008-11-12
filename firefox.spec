@@ -163,7 +163,7 @@ removed in favor of xulrunner-devel.
 
 %patch102 -p0 -b .theme-change
 %patch104 -p1 -b .ppc64
-%patch105 -p0 -b .dnd
+#%patch105 -p0 -b .dnd
 #%patch106 -p1 -b .indicator-crash
 #%patch110 -p0 -b .startup-notify
 %patch111 -p1 -b .path
