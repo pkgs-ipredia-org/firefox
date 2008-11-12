@@ -11,7 +11,7 @@
 
 Summary:        Mozilla Firefox Web browser.
 Name:           firefox
-Version:        2.0.0.17
+Version:        2.0.0.18
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -22,7 +22,7 @@ Group:          Applications/Internet
 %define tarball firefox-2.0rc3-source.tar.bz2
 %endif
 Source0:        %{tarball}
-Source2:        firefox-langpacks-%{version}-20080923.tar.bz2
+Source2:        firefox-langpacks-%{version}-20081112.tar.bz2
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
 Source12:       firefox-redhat-default-prefs.js
@@ -47,7 +47,6 @@ Patch23:        firefox-1.1-software-update.patch
 Patch40:        firefox-1.5-bullet-bill.patch
 Patch41:        firefox-2.0.0.4-undo-uriloader.patch
 Patch42:        firefox-1.1-uriloader.patch
-Patch43:        firefox-2.0-getstartpage.patch
 
 # font system fixes
 Patch81:        firefox-1.5-nopangoxft.patch
@@ -152,7 +151,6 @@ removed in favor of xulrunner-devel.
 %patch40 -p1 -b .bullet-bill
 %patch41 -p1 -b .undo-uriloader
 %patch42 -p0 -b .uriloader
-%patch43 -p1 -b .getstartpage
 #%patch81 -p1 -b .nopangoxft
 #%patch82 -p1 -b .pango-mathml
 %patch83 -p1 -b .pango-cursor-position
@@ -242,8 +240,10 @@ desktop-file-install --vendor mozilla \
 %{__cat} %{SOURCE12} | %{__sed} -e 's,FIREFOX_RPM_VR,%{version}-%{release},g' > rh-default-prefs
 
 # set up our default homepage
+%{__cat} > $RPM_BUILD_ROOT/%{mozappdir}/browserconfig.properties << EOF
+browser.startup.homepage=%{homepage}
+EOF
 %{__cat} >> rh-default-prefs << EOF
-pref("browser.startup.homepage", "%{homepage}");
 pref("startup.homepage_override_url", "%{homepage}");
 pref("startup.homepage_welcome_url", "%{homepage}");
 EOF
@@ -439,6 +439,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Nov 12 2008 Christopher Aillon <caillon@redhat.com> 2.0.0.18-1
+- Update to 2.0.0.18
+
 * Tue Sep 23 2008 Christopher Aillon <caillon@redhat.com> 2.0.0.17-1
 - Update to 2.0.0.17
 
