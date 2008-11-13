@@ -6,7 +6,7 @@
 
 %define mozappdir            %{_libdir}/%{name}-%{version}
 
-%define gecko_version 1.9.0.2
+%define gecko_version 1.9.0.4
 
 %define official_branding    1
 %define build_langpacks      1
@@ -18,7 +18,7 @@
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        3.0.2
+Version:        3.0.4
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -30,7 +30,7 @@ Group:          Applications/Internet
 %endif
 Source0:        %{tarball}
 %if %{build_langpacks}
-Source2:        firefox-langpacks-%{version}-20080923.tar.bz2
+Source2:        firefox-langpacks-%{version}-20081112.tar.bz2
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -41,8 +41,6 @@ Source22:       firefox.png
 Source23:       firefox.1
 Source100:      find-external-requires
 
-
-Patch1:         firefox-2.0-getstartpage.patch
 
 # Upstream patches
 
@@ -93,8 +91,6 @@ compliance, performance and portability.
 %prep
 %setup -q -c
 cd mozilla
-
-%patch1 -p1 -b .getstartpage
 
 # For branding specific patches.
 
@@ -174,8 +170,10 @@ desktop-file-install --vendor mozilla \
 %{__cat} %{SOURCE12} | %{__sed} -e 's,FIREFOX_RPM_VR,%{version}-%{release},g' > rh-default-prefs
 
 # set up our default homepage
+%{__cat} > $RPM_BUILD_ROOT/%{mozappdir}/browserconfig.properties << EOF
+browser.startup.homepage=%{homepage}
+EOF
 %{__cat} >> rh-default-prefs << EOF
-pref("browser.startup.homepage", "%{homepage}");
 pref("startup.homepage_override_url", "%{firstrun}");
 pref("startup.homepage_welcome_url", "%{firstrun}");
 EOF
@@ -332,6 +330,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Nov 12 2008 Christopher Aillon <caillon@redhat.com> 3.0.4-1
+- Update to 3.0.4
+
 * Tue Sep 23 2008 Christopher Aillon <caillon@redhat.com> 3.0.2-1
 - Update to 3.0.2
 
