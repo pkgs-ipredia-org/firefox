@@ -19,7 +19,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -178,6 +178,11 @@ pref("startup.homepage_override_url", "%{firstrun}");
 pref("startup.homepage_welcome_url", "%{firstrun}");
 EOF
 
+# resolves bug #461880
+%{__cat} > $RPM_BUILD_ROOT/%{mozappdir}/browserconfig.properties << EOF
+browser.startup.homepage=%{homepage}
+EOF
+
 # Export correct locale
 %{__cat} > $RPM_BUILD_ROOT/%{mozappdir}/defaults/preferences/firefox-l10n.js << EOF
 pref("general.useragent.locale", "chrome://global/locale/intl.properties");
@@ -330,6 +335,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Nov 13 2008 Jan Horak <jhorak@redhat.com> 3.0.4-2
+- Removed firefox-2.0-getstartpage.patch patch 
+- Start page is set by different way
+
 * Wed Nov 12 2008 Christopher Aillon <caillon@redhat.com> 3.0.4-1
 - Update to 3.0.4
 
