@@ -1,5 +1,4 @@
 %define homepage http://start.fedoraproject.org/
-%define firstrun http://fedoraproject.org/static/firefox/
 %define default_bookmarks_file %{_datadir}/bookmarks/default-bookmarks.html
 %define desktop_file_utils_version 0.9
 %define firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
@@ -46,7 +45,6 @@ Source100:      find-external-requires
 
 %if %{official_branding}
 # Required by Mozilla Corporation
-Patch10:        mozilla-firstrun.patch
 
 
 %else
@@ -97,7 +95,6 @@ cd mozilla
 
 %if %{official_branding}
 # Required by Mozilla Corporation
-%patch10 -p1 -b .firstrun
 
 %else
 # Not yet approved by Mozilla Corporation
@@ -174,10 +171,6 @@ desktop-file-install --vendor mozilla \
 %{__cat} > $RPM_BUILD_ROOT/%{mozappdir}/browserconfig.properties << EOF
 browser.startup.homepage=%{homepage}
 EOF
-%{__cat} >> rh-default-prefs << EOF
-pref("startup.homepage_override_url", "%{firstrun}");
-pref("startup.homepage_welcome_url", "%{firstrun}");
-EOF
 
 # Export correct locale
 %{__cat} > $RPM_BUILD_ROOT/%{mozappdir}/defaults/preferences/firefox-l10n.js << EOF
@@ -231,8 +224,6 @@ for langpack in `ls firefox-langpacks/*.xpi`; do
   unzip $jarfile -d $langtmp
 
   sed -i -e "s|browser.startup.homepage.*$|browser.startup.homepage=%{homepage}|g;" \
-         -e "s|startup.homepage_override_url.*$|startup.homepage_override_url=%{firstrun}|g;" \
-         -e "s|startup.homepage_welcome_url.*$|startup.homepage_welcome_url=%{firstrun}|g;" \
          $langtmp/locale/browser-region/region.properties
 
   find $langtmp -type f | xargs chmod 644
