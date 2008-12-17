@@ -6,7 +6,7 @@
 
 %define mozappdir            %{_libdir}/%{name}-%{version}
 
-%define gecko_version 1.9.0.4
+%define gecko_version 1.9.0.5
 
 %define official_branding    1
 %define build_langpacks      1
@@ -18,8 +18,8 @@
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        3.0.4
-Release:        2%{?dist}
+Version:        3.0.5
+Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -30,7 +30,7 @@ Group:          Applications/Internet
 %endif
 Source0:        %{tarball}
 %if %{build_langpacks}
-Source2:        firefox-langpacks-%{version}-20081112.tar.bz2
+Source2:        firefox-langpacks-%{version}-20081216.tar.bz2
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -177,11 +177,6 @@ EOF
 %{__cat} >> rh-default-prefs << EOF
 pref("startup.homepage_override_url", "%{firstrun}");
 pref("startup.homepage_welcome_url", "%{firstrun}");
-EOF
-
-# resolves bug #461880
-%{__cat} > $RPM_BUILD_ROOT/%{mozappdir}/browserconfig.properties << EOF
-browser.startup.homepage=%{homepage}
 EOF
 
 # Export correct locale
@@ -336,6 +331,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Dec 16 2008 Christopher Aillon <caillon@redhat.com> 3.0.5-1
+- Update to 3.0.5
+
 * Tue Nov 13 2008 Jan Horak <jhorak@redhat.com> 3.0.4-2
 - Removed firefox-2.0-getstartpage.patch patch 
 - Start page is set by different way
