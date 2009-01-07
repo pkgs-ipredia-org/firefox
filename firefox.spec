@@ -18,7 +18,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -322,6 +322,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Jan  7 2009 Jan Horak <jhorak@redhat.com> - 3.0.5-2
+- Fixed wrong LANG and LC_MESSAGES variables interpretation (#441973) 
+  in startup script.
+
 * Tue Dec 16 2008 Christopher Aillon <caillon@redhat.com> 3.0.5-1
 - Update to 3.0.5
 
