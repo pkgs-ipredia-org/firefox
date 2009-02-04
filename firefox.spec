@@ -5,7 +5,7 @@
 
 %define mozappdir            %{_libdir}/%{name}-%{version}
 
-%define gecko_version 1.9.0.5
+%define gecko_version 1.9.0.6
 
 %define official_branding    1
 %define build_langpacks      1
@@ -29,7 +29,7 @@ Group:          Applications/Internet
 %endif
 Source0:        %{tarball}
 %if %{build_langpacks}
-Source2:        firefox-langpacks-%{version}-20081216.tar.bz2
+Source2:        firefox-langpacks-%{version}-20090204.tar.bz2
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -322,6 +322,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Feb  4 2009 Christopher Aillon <caillon@redhat.com> - 3.0.6-1
+- Update to 3.0.6
+
 * Wed Jan  7 2009 Jan Horak <jhorak@redhat.com> - 3.0.5-2
 - Fixed wrong LANG and LC_MESSAGES variables interpretation (#441973) 
   in startup script.
