@@ -61,7 +61,7 @@ fi
 MOZ_DIST_BIN="$MOZ_LIB_DIR/firefox-FIREFOX_VERSION"
 MOZ_EXTENSIONS_DIR="$MOZ_DIST_BIN/extensions"
 MOZ_PROGRAM="$MOZ_DIST_BIN/firefox"
-MOZ_LAUCHER="$MOZ_DIST_BIN/run-mozilla.sh"
+MOZ_LAUNCHER="$MOZ_DIST_BIN/run-mozilla.sh"
  
 ##
 ## Set MOZ_GRE_CONF
@@ -179,7 +179,7 @@ done
 debugging=0
 if [ $debugging = 1 ]
 then
-  echo $MOZ_LAUCHER $script_args $MOZ_PROGRAM $MOZARGS "$@"
+  echo $MOZ_LAUNCHER $script_args $MOZ_PROGRAM $MOZARGS "$@"
 fi
 
-exec $MOZ_LAUCHER $script_args $MOZ_PROGRAM $MOZARGS "$@"
+exec $MOZ_LAUNCHER $script_args $MOZ_PROGRAM $MOZARGS "$@"
