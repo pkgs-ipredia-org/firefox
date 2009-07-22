@@ -18,8 +18,8 @@
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        3.5.2
-Release:        1%{?dist}
+Version:        3.5.1
+Release:        2%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
