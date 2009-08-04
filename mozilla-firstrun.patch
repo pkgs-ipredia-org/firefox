@@ -1,0 +1,13 @@
+diff -up firefox-3.0.2/mozilla/browser/base/jar.mn.firstrun firefox-3.0.2/mozilla/browser/base/jar.mn
+--- mozilla/browser/base/jar.mn.firstrun	2008-04-12 23:26:19.000000000 +0200
++++ mozilla/browser/base/jar.mn	2008-09-18 22:41:31.000000000 +0200
+@@ -21,9 +21,6 @@ browser.jar:
+ *       content/browser/browser.js                    (content/browser.js)
+ *       content/browser/browser.xul                   (content/browser.xul)
+ *       content/browser/credits.xhtml                 (content/credits.xhtml)
+-*       content/browser/EULA.js                       (content/EULA.js)
+-*       content/browser/EULA.xhtml                    (content/EULA.xhtml)
+-*       content/browser/EULA.xul                      (content/EULA.xul)
+ *       content/browser/metaData.js                   (content/metaData.js)
+ *       content/browser/metaData.xul                  (content/metaData.xul)
+ *       content/browser/pageinfo/pageInfo.xul         (content/pageinfo/pageInfo.xul)

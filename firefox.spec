@@ -45,7 +45,7 @@ Source100:      find-external-requires
 
 %if %{official_branding}
 # Required by Mozilla Corporation
-
+Patch10:       mozilla-firstrun.patch
 
 %else
 # Not yet approved by Mozillla Corporation
@@ -95,6 +95,7 @@ cd mozilla
 
 %if %{official_branding}
 # Required by Mozilla Corporation
+%patch10 -p1 -b .firstrun
 
 %else
 # Not yet approved by Mozilla Corporation
