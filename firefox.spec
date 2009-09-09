@@ -5,7 +5,7 @@
 
 %define mozappdir            %{_libdir}/%{name}-%{version}
 
-%define gecko_version 1.9.0.13
+%define gecko_version 1.9.0.14
 
 %define official_branding    1
 %define build_langpacks      1
@@ -17,7 +17,7 @@
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        3.0.13
+Version:        3.0.14
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -29,7 +29,7 @@ Group:          Applications/Internet
 %endif
 Source0:        %{tarball}
 %if %{build_langpacks}
-Source2:        firefox-langpacks-%{version}-20090731.tar.bz2
+Source2:        firefox-langpacks-%{version}-20090825.tar.bz2
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Sep  7 2009 Jan Horak <jhorak@redhat.com> - 3.0.14-1
+- Update to 3.0.14
+
 * Tue Aug 4 2009 Martin Stransky <stransky@redhat.com> - 3.0.13-1
 - Update to 3.0.13
 
