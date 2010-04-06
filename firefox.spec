@@ -6,7 +6,7 @@
 %define tarballdir mozilla-1.9.1
 
 %define xulrunner_version 1.9.1.9-1
-%define internal_version %{version}
+%define internal_version  3.5
 
 %define official_branding    1
 %define build_langpacks      1
@@ -19,12 +19,12 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.5.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
 %if %{official_branding}
-%define tarball firefox-%{internal_version}.source.tar.bz2
+%define tarball firefox-%{version}.source.tar.bz2
 %else
 %define tarball firefox-3.1b4-source.tar.bz2
 %endif
@@ -41,6 +41,8 @@ Source23:       firefox.1
 Source100:      find-external-requires
 
 
+# Build patches
+Patch0:         firefox-version.patch
 
 # Upstream patches
 
@@ -79,6 +81,11 @@ compliance, performance and portability.
 %prep
 %setup -q -c
 cd %{tarballdir}
+
+# build patches
+sed -e 's/__RPM_VERSION_INTERNAL__/%{internal_version}/' %{P:%%PATCH0} \
+    > version.patch
+%{__patch} -p1 -b --suffix .version --fuzz=0 < version.patch
 
 # For branding specific patches.
 
@@ -132,6 +139,9 @@ make -f client.mk build STRIP="/bin/true" MOZ_MAKE_FLAGS="$MOZ_SMP_FLAGS"
 %install
 %{__rm} -rf $RPM_BUILD_ROOT
 cd %{tarballdir}
+
+INTERNAL_GECKO=%{internal_version}
+MOZ_APP_DIR=%{_libdir}/%{name}-${INTERNAL_GECKO}
 
 DESTDIR=$RPM_BUILD_ROOT make install
 
@@ -330,6 +340,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Apr  6 2010 Martin Stransky <stransky@redhat.com> - 3.5.9-2
+- Fixed install dir
+
 * Tue Mar 30 2010 Jan Horak <jhorak@redhat.com> - 3.5.9-1
 - Update to 3.5.9
 
