@@ -1,39 +1,19 @@
-diff -up firefox-3.6.4/mozilla-1.9.2/browser/components/preferences/advanced.xul.default firefox-3.6.4/mozilla-1.9.2/browser/components/preferences/advanced.xul
---- firefox-3.6.4/mozilla-1.9.2/browser/components/preferences/advanced.xul.default	2010-06-11 22:40:51.000000000 +0200
-+++ firefox-3.6.4/mozilla-1.9.2/browser/components/preferences/advanced.xul	2010-06-24 11:42:36.000000000 +0200
-@@ -185,10 +185,11 @@
+diff -up firefox-3.5.10/mozilla-1.9.1/browser/components/preferences/advanced.xul.default firefox-3.5.10/mozilla-1.9.1/browser/components/preferences/advanced.xul
+--- firefox-3.5.10/mozilla-1.9.1/browser/components/preferences/advanced.xul.default	2010-05-04 17:55:27.000000000 +0200
++++ firefox-3.5.10/mozilla-1.9.1/browser/components/preferences/advanced.xul	2010-06-24 13:34:26.000000000 +0200
+@@ -182,7 +182,7 @@
+                       preference="layout.spellcheckDefault"/>
            </groupbox>
  
- #ifdef HAVE_SHELL_SERVICE
-+#ifdef MOZ_CRASHREPORTER
-           <!-- System Defaults -->
-           <groupbox id="systemDefaultsGroup" orient="vertical">
-             <caption label="&systemDefaults.label;"/>
--
+-#ifdef HAVE_SHELL_SERVICE
 +#ifdef 0
-             <hbox id="checkDefaultBox" align="center" flex="1">      
-               <checkbox id="alwaysCheckDefault" preference="browser.shell.checkDefaultBrowser"
-                         label="&alwaysCheckDefault.label;" accesskey="&alwaysCheckDefault.accesskey;"
-@@ -198,6 +199,7 @@
-                       oncommand="gAdvancedPane.checkNow()"
-                       preference="pref.general.disable_button.default_browser"/>
-             </hbox>
-+#endif
- #ifdef MOZ_CRASHREPORTER
-             <checkbox id="submitCrashesBox" flex="1"
-                       oncommand="gAdvancedPane.updateSubmitCrashes();"
-@@ -205,6 +207,7 @@
- #endif
-           </groupbox>
- #endif
-+#endif
-         </tabpanel>
- 
-         <!-- Network -->
-diff -up firefox-3.6.4/mozilla-1.9.2/browser/components/shell/src/nsGNOMEShellService.cpp.default firefox-3.6.4/mozilla-1.9.2/browser/components/shell/src/nsGNOMEShellService.cpp
---- firefox-3.6.4/mozilla-1.9.2/browser/components/shell/src/nsGNOMEShellService.cpp.default	2010-06-11 22:40:51.000000000 +0200
-+++ firefox-3.6.4/mozilla-1.9.2/browser/components/shell/src/nsGNOMEShellService.cpp	2010-06-24 11:42:36.000000000 +0200
-@@ -140,27 +140,21 @@ NS_IMPL_ISUPPORTS1(nsGNOMEShellService, 
+           <!-- System Defaults -->
+           <groupbox id="systemDefaultsGroup" orient="horizontal">
+             <caption label="&systemDefaults.label;"/>
+diff -up firefox-3.5.10/mozilla-1.9.1/browser/components/shell/src/nsGNOMEShellService.cpp.default firefox-3.5.10/mozilla-1.9.1/browser/components/shell/src/nsGNOMEShellService.cpp
+--- firefox-3.5.10/mozilla-1.9.1/browser/components/shell/src/nsGNOMEShellService.cpp.default	2010-05-04 17:55:27.000000000 +0200
++++ firefox-3.5.10/mozilla-1.9.1/browser/components/shell/src/nsGNOMEShellService.cpp	2010-06-24 13:33:25.000000000 +0200
+@@ -142,27 +142,21 @@ NS_IMPL_ISUPPORTS1(nsGNOMEShellService, 
  PRBool
  nsGNOMEShellService::KeyMatchesAppName(const char *aKeyValue) const
  {
@@ -66,7 +46,7 @@ diff -up firefox-3.6.4/mozilla-1.9.2/browser/components/shell/src/nsGNOMEShellSe
  }
  
  NS_IMETHODIMP
-@@ -216,8 +210,8 @@ nsGNOMEShellService::SetDefaultBrowser(P
+@@ -218,8 +212,8 @@ nsGNOMEShellService::SetDefaultBrowser(P
    nsCOMPtr<nsIGConfService> gconf = do_GetService(NS_GCONFSERVICE_CONTRACTID);
  
    nsCAutoString schemeList;
@@ -77,9 +57,9 @@ diff -up firefox-3.6.4/mozilla-1.9.2/browser/components/shell/src/nsGNOMEShellSe
    unsigned int i;
  
    for (i = 0; i < NS_ARRAY_LENGTH(appProtocols); ++i) {
-diff -up firefox-3.6.4/mozilla-1.9.2/browser/components/shell/src/nsGNOMEShellService.h.default firefox-3.6.4/mozilla-1.9.2/browser/components/shell/src/nsGNOMEShellService.h
---- firefox-3.6.4/mozilla-1.9.2/browser/components/shell/src/nsGNOMEShellService.h.default	2010-06-11 22:40:51.000000000 +0200
-+++ firefox-3.6.4/mozilla-1.9.2/browser/components/shell/src/nsGNOMEShellService.h	2010-06-24 11:42:36.000000000 +0200
+diff -up firefox-3.5.10/mozilla-1.9.1/browser/components/shell/src/nsGNOMEShellService.h.default firefox-3.5.10/mozilla-1.9.1/browser/components/shell/src/nsGNOMEShellService.h
+--- firefox-3.5.10/mozilla-1.9.1/browser/components/shell/src/nsGNOMEShellService.h.default	2010-05-04 17:55:27.000000000 +0200
++++ firefox-3.5.10/mozilla-1.9.1/browser/components/shell/src/nsGNOMEShellService.h	2010-06-24 13:33:25.000000000 +0200
 @@ -43,7 +43,7 @@
  class nsGNOMEShellService : public nsIShellService
  {
