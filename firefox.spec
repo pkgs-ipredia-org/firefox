@@ -44,7 +44,6 @@ Source100:      find-external-requires
 
 #Build patches
 Patch0:         firefox-version.patch
-Patch1:         mozilla-jemalloc-526152.patch
 
 # Fedora patches
 Patch10:        firefox-disable-checkupdates.patch
@@ -95,7 +94,6 @@ sed -e 's/__RPM_VERSION_INTERNAL__/%{internal_version}/' %{P:%%PATCH0} \
     
 
 # For branding specific patches.
-%patch1 -p1 -b .526152
 
 # Fedora patches
 %patch10 -p1 -b .checkupdates
