@@ -7,8 +7,8 @@
 
 # xulrunner_version matches the firefox package.
 # xulrunner_version_max is first next incompatible xulrunner version
-%define xulrunner_version       1.9.2.4-1
-%define xulrunner_version_max   1.9.2.5
+%define xulrunner_version       1.9.2.7-1
+%define xulrunner_version_max   1.9.2.8
 
 %define internal_version        3.6
 
@@ -24,8 +24,8 @@
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        3.6.4
-Release:        2%{?prever}%{?dist}
+Version:        3.6.7
+Release:        1%{?prever}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -383,6 +383,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Aug 9 2010 Martin Stransky <stransky@redhat.com> - 3.6.7-1
+- Update to 3.6.7
+
 * Tue Jun 24 2010 Martin Stransky <stransky@redhat.com> - 3.6.4-2
 - Fixed rhbz#531159 - disable firefox default browser check
 - Disabled automatic updates
