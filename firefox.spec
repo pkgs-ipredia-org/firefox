@@ -25,7 +25,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.6.10
-Release:        1%{?prever}%{?dist}
+Release:        1%{?prever}%{?dist}.1
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -383,6 +383,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Sep 29 2010 jkeating - 3.6.10-1.1
+- Rebuilt for gcc bug 634757
+
 * Tue Sep 21 2010 Martin Stransky <stransky@redhat.com> - 3.6.10-1
 - Update to 3.6.10
 
