@@ -25,7 +25,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.6.11
-Release:        1%{?prever}%{?dist}.1
+Release:        1%{?prever}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
