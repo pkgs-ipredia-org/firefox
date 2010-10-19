@@ -7,8 +7,8 @@
 
 # xulrunner_version matches the firefox package.
 # xulrunner_version_max is first next incompatible xulrunner version
-%define xulrunner_version       1.9.2.10-1
-%define xulrunner_version_max   1.9.2.11
+%define xulrunner_version       1.9.2.11-1
+%define xulrunner_version_max   1.9.2.12
 
 %define internal_version        3.6
 
@@ -24,7 +24,7 @@
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        3.6.10
+Version:        3.6.11
 Release:        1%{?prever}%{?dist}.1
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -32,7 +32,7 @@ Group:          Applications/Internet
 # From ftp://ftp.mozilla.org/pub/firefox/releases/%{version}%{?pretag}/source
 Source0:        firefox-%{version}%{?prever}.source.tar.bz2
 %if %{build_langpacks}
-Source2:        firefox-langpacks-%{version}-20100920.tar.bz2
+Source2:        firefox-langpacks-%{version}-20101019.tar.bz2
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -383,6 +383,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Oct 19 2010 Jan Horak <jhorak@redhat.com> - 3.6.11-1
+- Update to 3.6.11
+
 * Wed Sep 29 2010 jkeating - 3.6.10-1.1
 - Rebuilt for gcc bug 634757
 
