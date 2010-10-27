@@ -5,7 +5,7 @@
 %define mozappdir            %{_libdir}/%{name}-%{internal_version}
 %define tarballdir mozilla-1.9.1
 
-%define xulrunner_version 1.9.1.14
+%define xulrunner_version 1.9.1.15
 %define internal_version 3.5
 
 %define official_branding    1
@@ -18,7 +18,7 @@
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        3.5.14
+Version:        3.5.15
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -30,7 +30,7 @@ Group:          Applications/Internet
 %endif
 Source0:        %{tarball}
 %if %{build_langpacks}
-Source2:        firefox-langpacks-%{version}-20101019.tar.bz2
+Source2:        firefox-langpacks-%{version}-20101027.tar.bz2
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -348,6 +348,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Oct 27 2010 Martin Stransky <stransky@redhat.com> - 3.5.15-1
+- Update to 3.5.15
+
 * Tue Oct 19 2010 Jan Horak <jhorak@redhat.com> - 3.5.14-1
 - Update to 3.5.14
 
