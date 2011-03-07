@@ -7,8 +7,8 @@
 
 # xulrunner_version matches the firefox package.
 # xulrunner_version_max is first next incompatible xulrunner version
-%define xulrunner_version       1.9.2.14-1
-%define xulrunner_version_max   1.9.2.15
+%define xulrunner_version       1.9.2.15-1
+%define xulrunner_version_max   1.9.2.16
 
 %define internal_version        3.6
 
@@ -23,7 +23,7 @@
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        3.6.14
+Version:        3.6.15
 Release:        1%{?prever}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -31,7 +31,7 @@ Group:          Applications/Internet
 # From ftp://ftp.mozilla.org/pub/firefox/releases/%{version}%{?pretag}/source
 Source0:        firefox-%{version}%{?prever}.source.tar.bz2
 %if %{build_langpacks}
-Source2:        firefox-langpacks-%{version}-20110301.tar.bz2
+Source2:        firefox-langpacks-%{version}-20110307.tar.bz2
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -358,6 +358,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Mar  7 2011 Jan Horak <jhorak@redhat.com> - 3.6.15-1
+- Update to 3.6.15
+
 * Tue Mar  1 2011 Jan Horak <jhorak@redhat.com> - 3.6.14-1
 - Update to 3.6.14
 
