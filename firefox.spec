@@ -246,7 +246,7 @@ echo > ../%{name}.lang
 %if %{build_langpacks}
 # Install langpacks
 %{__mkdir_p} $RPM_BUILD_ROOT/%{mozappdir}/langpacks
-%{__tar} xjf %{SOURCE2}
+%{__tar} xf %{SOURCE2}
 for langpack in `ls firefox-langpacks/*.xpi`; do
   language=`basename $langpack .xpi`
   extensiondir=$RPM_BUILD_ROOT/%{mozappdir}/langpacks/langpack-$language@firefox.mozilla.org
