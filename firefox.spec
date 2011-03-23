@@ -14,7 +14,12 @@
 
 %define official_branding       1
 %define build_langpacks         1
-%define include_debuginfo       0
+# enable crash reporter only for iX86
+%ifarch %{ix86} x86_64
+%define enable_mozilla_crashreporter 1
+%else
+%define enable_mozilla_crashreporter 0
+%endif
 
 %if ! %{official_branding}
 %define cvsdate 20080327
@@ -25,7 +30,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        3.6.16
-Release:        1%{?prever}%{?dist}
+Release:        2%{?prever}%{?dist}
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -46,10 +51,8 @@ Source100:      find-external-requires
 
 #Build patches
 Patch0:         firefox-version.patch
-#Patch1:         mozilla-jemalloc-526152.patch
 
 # Fedora patches
-Patch10:        firefox-disable-checkupdates.patch
 Patch11:        firefox-default.patch
 
 # Upstream patches
@@ -97,10 +100,8 @@ sed -e 's/__RPM_VERSION_INTERNAL__/%{internal_version}/' %{P:%%PATCH0} \
     
 
 # For branding specific patches.
-#%patch1 -p1 -b .526152
 
 # Fedora patches
-%patch10 -p1 -b .checkupdates
 %patch11 -p2 -b .default
 
 %if %{official_branding}
@@ -116,7 +117,7 @@ sed -e 's/__RPM_VERSION_INTERNAL__/%{internal_version}/' %{P:%%PATCH0} \
 %if %{official_branding}
 %{__cat} %{SOURCE11} >> .mozconfig
 %endif
-%if %{include_debuginfo}
+%if %{enable_mozilla_crashreporter}
 %{__cat} %{SOURCE13} >> .mozconfig
 %endif
 
@@ -152,7 +153,7 @@ export LDFLAGS="-Wl,-rpath,${MOZ_APP_DIR}"
 make -f client.mk build STRIP="/bin/true" MOZ_MAKE_FLAGS="$MOZ_SMP_FLAGS"
 
 # create debuginfo for crash-stats.mozilla.com
-%if %{include_debuginfo}
+%if %{enable_mozilla_crashreporter}
 #cd %{moz_objdir}
 make buildsymbols
 %endif
@@ -292,7 +293,7 @@ touch $RPM_BUILD_ROOT/%{mozappdir}/components/xpti.dat
 %{__rm} -f $RPM_BUILD_ROOT/%{mozappdir}/libjemalloc.so
 
 # Enable crash reporter for Firefox application
-%if %{include_debuginfo}
+%if %{enable_mozilla_crashreporter}
 sed -i -e "s/\[Crash Reporter\]/[Crash Reporter]\nEnabled=1/" $RPM_BUILD_ROOT/%{mozappdir}/application.ini
 %endif
 
@@ -363,7 +364,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{mozappdir}/modules/NetworkPrioritizer.jsm
 %{mozappdir}/.autoreg
 # XXX See if these are needed still
-%{mozappdir}/updater*
 %exclude %{mozappdir}/removed-files
 %exclude %{mozappdir}/components/components.list
 %{_datadir}/icons/hicolor/16x16/apps/firefox.png
@@ -373,7 +373,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/icons/hicolor/32x32/apps/firefox.png
 %{_datadir}/icons/hicolor/48x48/apps/firefox.png
 
-%if %{include_debuginfo}
+%if %{enable_mozilla_crashreporter}
 #%{mozappdir}/crashreporter
 %{mozappdir}/crashreporter-override.ini
 #%{mozappdir}/Throbber-small.gif
@@ -383,6 +383,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Mar 23 2011 Jan Horak <jhorak@redhat.com> - 3.6.16-2
+- Enable Mozilla crash reporter
+- Disable Mozilla updater
+
 * Tue Mar 22 2011 Christopher Aillon <caillon@redhat.com> - 3.6.16-1
 - Update to 3.6.16
 
