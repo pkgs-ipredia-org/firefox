@@ -386,6 +386,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 * Tue Sep  6 2011 Jan Horak <jhorak@redhat.com> - 3.6.22-1
 - Update to 3.6.22
 
+* Tue Aug 16 2011 Martin Stransky <stransky@redhat.com> - 3.6.20-1
+- Update to 3.6.20
+
 * Tue Jun 21 2011 Jan Horak <jhorak@redhat.com> - 3.6.18-1
 - Update to 3.6.18
 
