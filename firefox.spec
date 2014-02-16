@@ -11,7 +11,7 @@
 # Build as a debug package?
 %define debug_build       0
 
-%define homepage http://start.fedoraproject.org/
+%define homepage http://ipredia.i2p/iprediaos/startpage/|http://localhost:7657
 %define default_bookmarks_file %{_datadir}/bookmarks/default-bookmarks.html
 %define firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 
@@ -292,7 +292,7 @@ for langpack in `ls firefox-langpacks/*.xpi`; do
   unzip -qq $langpack -d $extensionID
   find $extensionID -type f | xargs chmod 644
 
-  sed -i -e "s|browser.startup.homepage.*$|browser.startup.homepage=%{homepage}|g;" \
+  sed -i -e "s;browser.startup.homepage.*$;browser.startup.homepage=%{homepage};g;" \
      $extensionID/browser/chrome/$language/locale/branding/browserconfig.properties
 
   cd $extensionID
