@@ -73,6 +73,7 @@ Source12:       firefox-redhat-default-prefs.js
 Source20:       firefox.desktop
 Source21:       firefox.sh.in
 Source23:       firefox.1
+Source41:       firefox-langpacks-i2p-1.tar.gz
 
 #Build patches
 Patch0:         firefox-install-dir.patch
@@ -121,6 +122,15 @@ cd %{tarballdir}
 %patch0 -p1
 
 # For branding specific patches.
+
+# extract firefox-langpacks-i2p
+%{__tar} xf %{SOURCE41}
+# get text from firefox-langpacks-i2p
+proxy_connect_failure_title=$(cat proxyConnectFailure_title.txt)
+proxy_connect_failure_longdesc=$(cat proxyConnectFailure_longDesc.txt)
+# change proxy connect failure message
+sed -i "s|.*proxyConnectFailure.title.*|<!ENTITY proxyConnectFailure.title \"$proxy_connect_failure_title\">|" browser/locales/*/chrome/overrides/netError.dtd
+perl -i -pe "BEGIN{undef $/;} s|proxyConnectFailure.longDesc \"[^\"]*\">|proxyConnectFailure.longDesc \"$proxy_connect_failure_longdesc\">|sm" browser/locales/*/chrome/overrides/netError.dtd
 
 # Fedora patches
 %patch14 -p1 -b .asciidel
@@ -296,6 +306,14 @@ for langpack in `ls firefox-langpacks/*.xpi`; do
      $extensionID/browser/chrome/$language/locale/branding/browserconfig.properties
 
   cd $extensionID
+
+  # get text from firefox-langpacks-i2p
+  proxy_connect_failure_title=$(cat ../proxyConnectFailure_title-$language.txt || cat ../proxyConnectFailure_title.txt)
+  proxy_connect_failure_longdesc=$(cat ../proxyConnectFailure_longDesc-$language.txt || cat ../proxyConnectFailure_longDesc.txt)
+  # change proxy connect failure message
+  sed -i "s|.*proxyConnectFailure.title.*|<!ENTITY proxyConnectFailure.title \"$proxy_connect_failure_title\">|" browser/chrome/*/locale/browser/netError.dtd
+  perl -i -pe "BEGIN{undef $/;} s|proxyConnectFailure.longDesc \"[^\"]*\">|proxyConnectFailure.longDesc \"$proxy_connect_failure_longdesc\">|sm" browser/chrome/*/locale/browser/netError.dtd
+
   zip -qq -r9mX ../${extensionID}.xpi *
   cd -
 
